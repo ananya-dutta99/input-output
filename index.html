@@ -1,13 +1,136 @@
-<!DOCTYPE html>
 <html lang="en">
+
+
+  
+    
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
+
+<style>
+	.header {
+		font-family: fantasy;
+        width: 1000px;
+		color: whitesmoke;
+		font-size: 40px;
+        margin: 1em;
+        text-shadow: 1px 1px 2px black;
+
+	}
+
+
+
+	
+
+
+</style>
+
+<div class="header">What color is your name?</div>
+
+
 <body>
-    yo
+
+
+	
+	<input type="text" value="" id="name-input">
+
+	<button onclick="name2color();">
+		Enter your first name
+	</button>
+
+	<div id="results"></div>
+
+	<script>
+
+		function name2color() {
+			const resultsElement = document.querySelector('#results');
+
+			const nameInput = document.querySelector('#name-input');
+			const yourname = nameInput.value;
+			let namelower=yourname.toLowerCase();
+
+			let asciiArray=[]
+
+			for (let i=0; i<namelower.length;i++){
+				let asciiValue=namelower.charCodeAt(i);
+				asciiArray.push(asciiValue);
+
+			}
+
+			let hexArray=[]
+
+			for (let i=0; i<namelower.length;i++){
+				let hexPart1a=asciiArray[i]/16;
+				let hexPart1=Math.floor(hexPart1a);
+				let hexPart2a=asciiArray[i]%16;
+				let hexPart2=hexPart2a.toString(16);
+				let hexValue=`${hexPart1}${hexPart2}`
+				hexArray.push(hexValue);
+				fullHex=hexArray.join('');
+				//alert (fullHex);
+
+
+			}
+
+			let l=fullHex.length;
+
+			let sixHex=[]
+
+			if (l<5){
+				for (i=fullHex.length;i<6;i++){
+					fullHex=`${fullHex}${0}`;
+				}
+
+			}else if (l>6){
+				strHex = fullHex.toString();
+				divider=Math.floor(l/6);
+				bigHexArray=Array.from(strHex);
+				
+				
+				divider=Math.floor(l/6);
+				
+				for (let i=1; i<strHex.length;i=i+divider){
+					let oneHex=bigHexArray[i];
+					sixHex.push(oneHex);	
+					fullHex=sixHex.join('');
+
+				}
+				if (fullHex.length>5){
+				let s=fullHex.length-6;
+				fullHexArray=Array.from(fullHex);
+					
+				for (let i=0;i<s;i++){
+					fullHexArray.pop();
+				}
+
+				fullHex=fullHexArray.join('');
+				}
+
+			}
+		
+			document.body.style.backgroundColor = fullHex;
+
+
+	
+
+
+				//alert ("The hexcode corelating to '" + yourname + "' is #" + fullHex + " which looks like:");
+
+                const output = document.querySelector('#results');
+                output.innerHTML = '<span style="color: white;""text-shadow: 1px 1px 2px black">The hexcode corelating to "'+ yourname +'" is # '+ fullHex +' which looks like this!</span>';
+				
+				
+		
+		}
+
+
+
+
+
+	</script>
+
 </body>
 </html>
-# Auto detect text files and perform LF normalization
-* text=auto
